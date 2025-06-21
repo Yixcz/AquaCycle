@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaCycle - Revolución en Reutilización de Agua Escolar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);
+            overflow-x: hidden;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(30, 60, 114, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(79, 172, 254, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #4facfe;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.8);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #4facfe, #00c9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            text-shadow: 0 0 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.7;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(79, 172, 254, 0.6);
+            background: linear-gradient(45deg, #00c9ff, #4facfe);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .water-drop {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.9) 0%, rgba(0, 201, 255, 0.5) 100%);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+        }
+
+        .water-drop:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .water-drop:nth-child(2) { top: 60%; left: 85%; animation-delay: 2s; }
+        .water-drop:nth-child(3) { top: 35%; left: 15%; animation-delay: 4s; }
+        .water-drop:nth-child(4) { top: 80%; left: 70%; animation-delay: 1s; }
+        .water-drop:nth-child(5) { top: 10%; left: 75%; animation-delay: 3s; }
+        .water-drop:nth-child(6) { top: 45%; left: 90%; animation-delay: 5s; }
+
+        .features {
+            padding: 120px 0;
+            background: rgba(30, 60, 114, 0.8);
+            backdrop-filter: blur(15px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(79, 172, 254, 0.15);
+            padding: 2.5rem;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            background: rgba(79, 172, 254, 0.25);
+            box-shadow: 0 25px 50px rgba(79, 172, 254, 0.3);
+            border-color: rgba(79, 172, 254, 0.6);
+        }
+
+        .feature-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #4facfe;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .stats {
+            padding: 120px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .stat-item {
+            padding: 2.5rem;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(79, 172, 254, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #4facfe;
+            display: block;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+        }
+
+        .prototype-demo {
+            padding: 120px 0;
+            background: rgba(42, 82, 152, 0.6);
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .demo-visual {
+            position: relative;
+            height: 450px;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.3), rgba(0, 201, 255, 0.2));
+            border-radius: 25px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(79, 172, 254, 0.4);
+        }
+
+        .water-flow {
+            width: 120px;
+            height: 350px;
+            background: linear-gradient(to bottom, #4facfe, #00c9ff);
+            border-radius: 60px;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(79, 172, 254, 0.6);
+        }
+
+        .water-flow::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: bubble 3s ease-in-out infinite;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ffffff, #4facfe, #00c9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .student-solutions {
+            padding: 120px 0;
+            background: rgba(30, 60, 114, 0.8);
+            backdrop-filter: blur(15px);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .solution-card {
+            background: rgba(79, 172, 254, 0.15);
+            padding: 2.5rem;
+            border-radius: 25px;
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            background: rgba(79, 172, 254, 0.25);
+            border-color: rgba(79, 172, 254, 0.5);
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.3);
+        }
+
+        .solution-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .solution-card h3 {
+            color: #4facfe;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .solution-steps {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .solution-steps li {
+            padding: 0.8rem 0;
+            border-left: 4px solid #4facfe;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 0 15px 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .solution-steps li:hover {
+            background: rgba(79, 172, 254, 0.2);
+            transform: translateX(5px);
+        }
+
+        .impact-box {
+            background: linear-gradient(45deg, rgba(79, 172, 254, 0.3), rgba(0, 201, 255, 0.2));
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 2px solid rgba(79, 172, 254, 0.4);
+        }
+
+        .impact-title {
+            color: #4facfe;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .calculator-section {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3rem;
+            border-radius: 25px;
+            margin-top: 4rem;
+            border: 2px solid rgba(79, 172, 254, 0.3);
+        }
+
+        .calculator-input {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            color: #4facfe;
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .input-group input {
+            padding: 1rem;
+            border: 2px solid rgba(79, 172, 254, 0.4);
+            border-radius: 15px;
+            background: rgba(79, 172, 254, 0.1);
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.2);
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .calculator-result {
+            background: linear-gradient(45deg, rgba(79, 172, 254, 0.4), rgba(0, 201, 255, 0.3));
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 2rem;
+            border: 2px solid rgba(79, 172, 254, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .calculator-result.updated {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(79, 172, 254, 0.5);
+        }
+
+        .result-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #4facfe;
+            display: block;
+            text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .additional-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .result-item {
+            background: rgba(79, 172, 254, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(79, 172, 254, 0.4);
+        }
+
+        .result-item h4 {
+            color: #4facfe;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-item .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-45deg); }
+            50% { transform: translateY(-25px) rotate(-45deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes bubble {
+            0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(-280px); opacity: 0; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(79, 172, 254, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(79, 172, 254, 0.6); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.2rem; }
+            .demo-container { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .calculator-input { grid-template-columns: 1fr; }
+            .section-title { font-size: 2.5rem; }
+            .additional-results { grid-template-columns: 1fr; }
+
+            /* Chatbot para móviles */
+            .aquacycle-ia-container {
+                width: 90%;
+                left: 5%;
+                bottom: 15px;
+            }
+            .aquacycle-ia-container.open {
+                height: 70vh; /* Mayor altura en móviles */
+            }
+            .open-button {
+                left: 50%;
+                transform: translateX(-50%);
+                width: auto;
+                padding: 12px 20px;
+            }
+        }
+
+        footer {
+            background: rgba(30, 60, 114, 0.9);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 2px solid rgba(79, 172, 254, 0.3);
+        }
+
+        .highlight {
+            color: #4facfe;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+        }
+
+        /* Estilos para el chatbot flotante */
+        .aquacycle-ia-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 320px;
+            background: rgba(30, 60, 114, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            overflow: hidden; /* Oculta el contenido extra */
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease-in-out;
+            border: 2px solid rgba(79, 172, 254, 0.4);
+        }
+
+        .aquacycle-ia-container.closed {
+            width: auto;
+            height: auto;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .aquacycle-ia-container.open {
+            height: 450px; /* Altura cuando está abierto */
+        }
+
+        .aquacycle-ia-header {
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer; /* Indica que es clickeable */
+        }
+
+        .aquacycle-ia-header .close-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .aquacycle-ia-header .close-button:hover {
+            transform: rotate(90deg);
+        }
+
+        .aquacycle-ia-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 15px;
+            gap: 10px;
+            visibility: hidden; /* Por defecto oculto cuando está cerrado */
+            opacity: 0;
+            transition: visibility 0s, opacity 0.4s ease;
+            height: calc(100% - 50px); /* Altura dinámica del cuerpo */
+        }
+
+        .aquacycle-ia-container.open .aquacycle-ia-body {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* Estilos de la barra de desplazamiento del chat */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #4facfe;
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #00c9ff;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 85%;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background: linear-gradient(45deg, #00c9ff, #4facfe);
+            color: white;
+            align-self: flex-end;
+            text-align: right;
+            border-bottom-right-radius: 5px;
+        }
+
+        .bot-message {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            align-self: flex-start;
+            text-align: left;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            border-bottom-left-radius: 5px;
+        }
+
+        .bot-message.thinking {
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .bot-message.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.5);
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: auto; /* Empuja el área de entrada al final */
+        }
+
+        .chat-input-area input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid rgba(79, 172, 254, 0.5);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input-area input:focus {
+            border-color: #00c9ff;
+            box-shadow: 0 0 10px rgba(0, 201, 255, 0.3);
+        }
+
+        .chat-input-area input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .chat-input-area button {
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .chat-input-area button:hover {
+            background: linear-gradient(45deg, #00c9ff, #4facfe);
+            transform: translateY(-2px);
+        }
+
+        /* Botón para abrir el chat cuando está cerrado */
+        .open-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #4facfe, #00c9ff);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+            z-index: 1001; /* Asegúrate de que esté por encima del contenedor */
+            display: none; /* Se oculta cuando el chat está abierto */
+            transition: all 0.3s ease;
+        }
+
+        .open-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AquaCycle Escolar</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#funciones">Funciones</a></li>
+                <li><a href="#prototipo">Prototipo</a></li>
+                <li><a href="#soluciones">Implementación</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="floating-elements">
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+        </div>
+        <div class="hero-content">
+            <h1>AquaCycle Escolar</h1>
+            <p>Revolucionando el manejo del agua en instituciones educativas. Transforma el agua de lavamanos, bebederos y laboratorios en agua limpia y reutilizable para limpieza y mantenimiento del colegio.</p>
+            <a href="#prototipo" class="cta-button">Descubre el Prototipo</a>
+        </div>
+    </section>
+
+    <section class="features" id="funciones">
+        <div class="container">
+            <h2 class="section-title">Tecnología Escolar Inteligente</h2>
+            <p class="section-subtitle">Nuestro sistema está diseñado específicamente para las necesidades de colegios e instituciones educativas sin áreas verdes</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏫</div>
+                    <h3>Diseño Escolar Avanzado</h3>
+                    <p>Sistema compacto que se integra perfectamente en patios, laboratorios y áreas comunes del colegio sin interferir con las actividades educativas diarias.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💧</div>
+                    <h3>Purificación Multicauce</h3>
+                    <p>Procesa agua de lavamanos, bebederos, laboratorios y agua de lluvia, convirtiéndola en agua de alta calidad apta para limpieza y mantenimiento escolar.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧽</div>
+                    <h3>Limpieza Integral Total</h3>
+                    <p>El agua purificada se utiliza para limpieza completa de patios, aulas, baños, escaleras, laboratorios y todas las áreas comunes del colegio.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Herramienta Educativa Práctica</h3>
+                    <p>Los estudiantes aprenden sobre sostenibilidad, química del agua, ingeniería ambiental y tecnología verde de forma completamente práctica.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Ahorro Institucional Máximo</h3>
+                    <p>Reduce los costos de agua del colegio hasta en un <span class="highlight">60%</span> y genera ahorros significativos en el presupuesto anual institucional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">Impacto Revolucionario en el Colegio</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">1,200L</span>
+                    <span>Litros procesados diariamente</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">60%</span>
+                    <span>Reducción en factura de agua</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">10h</span>
+                    <span>Horas de funcionamiento diario</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span>Estudiantes beneficiados</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="prototype-demo" id="prototipo">
+        <div class="container">
+            <div class="demo-container">
+                <div class="demo-visual">
+                    <div class="water-flow"></div>
+                </div>
+                <div class="demo-content">
+                    <h2 class="section-title">Prototipo Innovador</h2>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                        El prototipo <span class="highlight">AquaCycle Escolar</span> está diseñado para instalarse estratégicamente en el patio del colegio, conectándose directamente a los desagües de lavamanos, bebederos y laboratorios de ciencias mediante un sistema de tuberías inteligente.
+                    </p>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                        Durante el recreo y horas de clase, el sistema recolecta automáticamente el agua usada, la purifica mediante <span class="highlight">filtros especializados de última generación</span> y la almacena en tanques subterráneos para uso inmediato en limpieza de aulas, patios y baños del colegio.
+                    </p>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                        <strong class="highlight">Capacidad:</strong> 1,200 litros diarios | <strong class="highlight">Cobertura:</strong> 100% del colegio | <strong class="highlight">Estudiantes beneficiados:</strong> 500+
+                    </p>
+                    <a href="#soluciones" class="cta-button">Ver Implementación</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="student-solutions" id="soluciones">
+        <div class="container">
+            <h2 class="section-title">Implementación Revolucionaria</h2>
+            <p class="section-subtitle">Plan completo para transformar tu institución educativa en un modelo de sostenibilidad hídrica y maximizar el ahorro de agua</p>
+
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <div class="solution-icon">🏗️</div>
+                        <h3>Infraestructura del Sistema</h3>
+                    </div>
+                    <ul class="solution-steps">
+                        <li>Sistema modular ubicado estratégicamente en el patio central</li>
+                        <li>Red de tuberías conectando todos los puntos de agua del colegio</li>
+                        <li>Tanque de almacenamiento subterráneo de alta capacidad (2,000L)</li>
+                        <li>Sistema de distribución para toda la infraestructura escolar</li>
+                    </ul>
+                    <div class="impact-box">
+                        <div class="impact-title">⚡ Tecnología implementada:</div>
+                        <p>Sistema completamente automatizado con filtros de alta eficiencia</p>
+                    </div>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <div class="solution-icon">🎓</div>
+                        <h3>Integración Educativa Completa</h3>
+                    </div>
+                    <ul class="solution-steps">
+                        <li>Módulo curricular avanzado sobre ciclo del agua y purificación</li>
+                        <li>Brigada ecológica estudiantil con roles de liderazgo</li>
+                        <li>Proyecto de investigación científica anual sobre sostenibilidad hídrica</li>
+                        <li>Centro de exhibición interactivo para visitantes y comunidad</li>
+                    </ul>
+                    <div class="impact-box">
+                        <div class="impact-title">🌟 Impacto educativo:</div>
+                        <p>500+ estudiantes aprenden sostenibilidad práctica y liderazgo ambiental</p>
+                    </div>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <div class="solution-icon">✨</div>
+                        <h3>Aprovechamiento Total del Agua</h3>
+                    </div>
+                    <ul class="solution-steps">
+                        <li>Limpieza diaria de todas las aulas y salones</li>
+                        <li>Mantenimiento completo de patios, escaleras, pasillos y áreas comunes</li>
+                        <li>Limpieza profunda de baños, servicios higiénicos y laboratorios</li>
+                        <li>Sistema de lavado de pisos y superficies con agua reciclada</li>
+                    </ul>
+                    <div class="impact-box">
+                        <div class="impact-title">🏢 Cobertura total:</div>
+                        <p>100% de la limpieza y mantenimiento del colegio con agua reciclada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AquaCycle Escolar. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="aquacycle-ia-container" id="aquacycleIaContainer">
+        <div class="aquacycle-ia-header" id="aquacycleIaHeader">
+            AquaCycle IA
+            <button class="close-button" id="closeChatButton">×</button>
+        </div>
+        <div class="aquacycle-ia-body" id="aquacycleIaBody">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    Hola! Soy AquaCycle IA. Pregúntame sobre el proyecto, el ahorro de agua o la sostenibilidad escolar.
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="aquacycleIaInput" placeholder="Escribe tu pregunta...">
+                <button id="aquacycleIaSendButton">Enviar</button>
+            </div>
+        </div>
+        <button class="open-button" id="openChatButton">AquaCycle IA</button>
+    </div>
+
+    <script>
+        // **TU API KEY DE GEMINI**
+        // Recordatorio: Para entornos de producción, es más seguro usar un backend para manejar la API key.
+        const GEMINI_API_KEY = 'AIzaSyBXM-QWbIwZp_MGBJ1GUkRklVpGxQErap8'; // ¡Clave de API actualizada!
+        // Modelo 'gemini-2.5-flash-lite-preview-06-17'
+        const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview-06-17:generateContent?key=${GEMINI_API_KEY}`;
+
+        const aquacycleIaContainer = document.getElementById('aquacycleIaContainer');
+        const aquacycleIaHeader = document.getElementById('aquacycleIaHeader');
+        const aquacycleIaBody = document.getElementById('aquacycleIaBody');
+        const aquacycleIaInput = document.getElementById('aquacycleIaInput');
+        const aquacycleIaSendButton = document.getElementById('aquacycleIaSendButton');
+        const chatMessages = document.getElementById('chatMessages');
+        const closeChatButton = document.getElementById('closeChatButton');
+        const openChatButton = document.getElementById('openChatButton');
+
+        // Estado del chat: abierto o cerrado
+        let isChatOpen = false; // Se mantiene en false porque la función toggleChat se llamará inmediatamente al final.
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            if (isChatOpen) {
+                aquacycleIaContainer.classList.add('open');
+                aquacycleIaContainer.classList.remove('closed');
+                openChatButton.style.display = 'none'; // Ocultar el botón de abrir
+                aquacycleIaInput.focus(); // Pone el foco en el input cuando se abre
+            } else {
+                aquacycleIaContainer.classList.remove('open');
+                aquacycleIaContainer.classList.add('closed');
+                openChatButton.style.display = 'block'; // Mostrar el botón de abrir
+            }
+        }
+
+        // Event Listeners para abrir/cerrar el chat
+        closeChatButton.addEventListener('click', toggleChat);
+        openChatButton.addEventListener('click', toggleChat);
+
+        // Llama a toggleChat para que el chat inicie abierto al cargar la página
+        toggleChat();
+
+
+        aquacycleIaSendButton.addEventListener('click', sendMessage);
+        aquacycleIaInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        async function sendMessage() {
+            const message = aquacycleIaInput.value.trim();
+            if (message === '') return;
+
+            appendMessage(message, 'user');
+            aquacycleIaInput.value = '';
+
+            let thinkingMessage = appendMessage('AquaCycle IA está pensando...', 'bot thinking');
+
+            try {
+                // Ajuste del prompt para mayor especificidad del proyecto
+                const prompt = `Como asistente de un proyecto llamado "AquaCycle Escolar", que se enfoca en la reutilización de agua en escuelas sin áreas verdes (específicamente agua de lavamanos, bebederos y laboratorios para limpieza y mantenimiento de las instalaciones del colegio), responde a la siguiente pregunta: "${message}".
+                Enfoca tus respuestas en la sostenibilidad hídrica en entornos escolares, el ahorro de agua, la tecnología de purificación para uso no potable (limpieza, mantenimiento), beneficios ambientales y económicos para colegios. Es crucial que evites mencionar el riego de plantas o áreas verdes en tus respuestas, ya que el proyecto está diseñado para colegios sin ellas o que no usan agua reciclada para ese fin. Sé conciso, informativo y educativo.`;
+
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: prompt
+                            }]
+                        }]
+                    }),
+                });
+
+                const responseText = await response.text();
+
+                if (!response.ok) {
+                    console.error('HTTP Error Response Text:', responseText); // Log raw error response
+                    throw new Error(`HTTP error! status: ${response.status}. Response: ${responseText.substring(0, 200)}...`);
+                }
+
+                const data = JSON.parse(responseText);
+
+                // Eliminar el mensaje "pensando..."
+                if (thinkingMessage && chatMessages.contains(thinkingMessage)) {
+                    chatMessages.removeChild(thinkingMessage);
+                }
+
+                let botResponse = 'Lo siento, no pude generar una respuesta en este momento. Intenta reformular tu pregunta.';
+                if (data.candidates && data.candidates.length > 0 && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts.length > 0) {
+                    botResponse = data.candidates[0].content.parts[0].text;
+                } else if (data.error) {
+                    botResponse = `Error de la API: ${data.error.message || 'Desconocido'}. Por favor, revisa tu API Key y las quotas.`;
+                    console.error('API Error Response:', data.error);
+                } else {
+                    console.warn('Unexpected API response structure:', data);
+                    botResponse = 'La API no devolvió una respuesta válida. Consulta la consola para más detalles.';
+                }
+
+                appendMessage(botResponse, 'bot');
+
+            } catch (error) {
+                console.error('Error durante la comunicación con la API de Gemini:', error);
+                if (thinkingMessage && chatMessages.contains(thinkingMessage)) {
+                    chatMessages.removeChild(thinkingMessage);
+                }
+                appendMessage('Lo siento, hubo un problema al comunicarme con la IA. Intenta de nuevo más tarde o revisa la consola para más detalles.', 'bot error');
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        }
+
+        // Función appendMessage corregida para aceptar múltiples clases
+        function appendMessage(text, classes) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            // Divide la cadena de clases por espacios y añade cada una individualmente
+            classes.split(' ').forEach(cls => {
+                messageDiv.classList.add(`${cls}-message`);
+            });
+            messageDiv.innerHTML = text; // Usar innerHTML para interpretar posibles etiquetas HTML si la IA las envía
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the latest message
+            return messageDiv;
+        }
+    </script>
+</body>
+</html>
