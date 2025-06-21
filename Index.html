@@ -1001,7 +1001,7 @@
     <script>
         // **TU API KEY DE GEMINI**
         // Recordatorio: Para entornos de producción, es más seguro usar un backend para manejar la API key.
-        const GEMINI_API_KEY = 'AIzaSyBXM-QWbIwZp_MGBJ1GUkRklVpGxQErap8'; // ¡Clave de API actualizada!
+        const GEMINI_API_KEY = 'AIzaSyBXM-QWbIwZp_MGBJ1GUkRklVpGxQErap8'; // ¡Usando la última clave que me proporcionaste!
         // Modelo 'gemini-2.5-flash-lite-preview-06-17'
         const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview-06-17:generateContent?key=${GEMINI_API_KEY}`;
 
@@ -1015,7 +1015,7 @@
         const openChatButton = document.getElementById('openChatButton');
 
         // Estado del chat: abierto o cerrado
-        let isChatOpen = false; // Se mantiene en false porque la función toggleChat se llamará inmediatamente al final.
+        let isChatOpen = false;
 
         function toggleChat() {
             isChatOpen = !isChatOpen;
@@ -1033,6 +1033,7 @@
 
         // Event Listeners para abrir/cerrar el chat
         closeChatButton.addEventListener('click', toggleChat);
+        aquacycleIaHeader.addEventListener('click', toggleChat); // También el header para abrir/cerrar
         openChatButton.addEventListener('click', toggleChat);
 
         // Llama a toggleChat para que el chat inicie abierto al cargar la página
